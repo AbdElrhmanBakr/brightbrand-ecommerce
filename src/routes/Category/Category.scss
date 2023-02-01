@@ -1,0 +1,28 @@
+.category-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 35px;
+  margin-bottom: 25px;
+
+  .category-products-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    row-gap: 50px;
+  }
+
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+
+    .category-title {
+      font-size: 28px;
+      cursor: pointer;
+      align-self: center;
+    }
+    .not-clicked {
+      cursor: context-menu;
+    }
+  }
+}

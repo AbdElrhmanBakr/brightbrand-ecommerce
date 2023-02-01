@@ -1,0 +1,10 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+
+  .error-msg {
+    color: rgb(241, 21, 21);
+    margin-bottom: 10px;
+  }
+}

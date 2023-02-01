@@ -1,0 +1,23 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+
+  .btns-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .error-msg {
+    color: rgb(241, 21, 21);
+    margin-bottom: 10px;
+  }
+  .signin-head {
+    margin: 20px 0 10px 0;
+  }
+}
+@media screen and (max-width: 900px) {
+  .form-container {
+    margin-bottom: 50px;
+  }
+}
