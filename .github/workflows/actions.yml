@@ -1,4 +1,6 @@
-on: push
+on:
+push:
+  branches: main
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
@@ -21,6 +23,6 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
-          server: ftp.samkirkland.com
-          username: myFtpUserName
-          password: ${{ secrets.password }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
