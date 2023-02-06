@@ -11,12 +11,13 @@ import "./NavBar.scss";
 const NavBar = () => {
   const { currentUser } = useContext(userContext);
   const { displayCart } = useContext(cartContext);
-  const { setCurrentUser } = useContext(userContext);
 
-  const handleSignOut = async () => {
-    await signOutUser();
-    setCurrentUser(null);
-  };
+  // Commented as replaced with onAuthStateChanged in context [UserDataContext]
+  // const { setCurrentUser } = useContext(userContext);
+  // const handleSignOut = async () => {
+  //   await signOutUser();
+  //   setCurrentUser(null);
+  // };
 
   return (
     <Fragment>
@@ -32,7 +33,7 @@ const NavBar = () => {
             SHOP
           </Link>
           {currentUser ? (
-            <span className="nav-link" onClick={handleSignOut}>
+            <span className="nav-link" onClick={signOutUser}>
               SIGN OUT
             </span>
           ) : (
