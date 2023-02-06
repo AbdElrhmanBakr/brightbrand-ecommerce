@@ -1,9 +1,16 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+// Commented as replaced with onAuthStateChanged in context [UserDataContext]
+// import { useContext } from "react";
+
 import "./SignUpForm.scss";
 import FormInput from "../FormInput/FormInput";
 import Button from "../Button/Button";
-import { userContext } from "../../context/UserContext";
+
+// Commented as replaced with onAuthStateChanged in context [UserDataContext]
+// import { userContext } from "../../context/UserDataContext";
+
 import {
   createNewAuthUserWithEmailPassWord,
   createNewAuthUser,
@@ -23,7 +30,8 @@ const SignUpForm = () => {
   const [errorState, setErrorState] = useState(""); // <-- Display error on a span element
 
   //! Contexts
-  const { setCurrentUser } = useContext(userContext);
+  // Commented as replaced with onAuthStateChanged in context [UserDataContext]
+  // const { setCurrentUser } = useContext(userContext);
 
   //! Functions
   const navigateTo = useNavigate();
@@ -55,8 +63,10 @@ const SignUpForm = () => {
         passWord
       );
       await createNewAuthUser(user, { displayName });
-      setCurrentUser(user);
       alfterLoggingIn();
+
+      // Commented as replaced with onAuthStateChanged in context [UserDataContext]
+      // setCurrentUser(user);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         handeError("Email already in use.");
