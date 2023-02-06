@@ -1,20 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-// Commented as replaced with onAuthStateChanged in context [UserDataContext]
-// import { useContext } from "react";
-
-import "./SignInForm.scss";
-import FormInput from "../FormInput/FormInput";
-import Button from "../Button/Button"; //<-- General Button Component
-
-// Commented as replaced with onAuthStateChanged in context [UserDataContext]
-// import { userContext } from "../../context/UserDataContext"; //<-- General Storage
+import { userContext } from "../../context/UserContext"; //<-- General Storage
 import {
   signInWithGooglePopup,
   signInWithFacebookPopup,
   signInNewAuthUserWithEmailPassWord,
-  // createNewAuthUser,
+  createNewAuthUser,
 } from "../../utils/FireBase/FireBase";
+import Button from "../Button/Button"; //<-- General Button Component
+import FormInput from "../FormInput/FormInput";
+import "./SignInForm.scss";
 
 const SignInForm = () => {
   //! Stats
@@ -29,8 +24,7 @@ const SignInForm = () => {
   const [socialErrorState, setSocialErrorState] = useState(""); // <-- [SocialMedia] SignIn Error State for [Span]
 
   //! Contexts
-  // Commented as replaced with onAuthStateChanged in context [UserDataContext]
-  // const { setCurrentUser } = useContext(userContext);
+  const { setCurrentUser } = useContext(userContext);
 
   //! Functions
   const handleChange = (event) => {
@@ -59,12 +53,12 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await signInNewAuthUserWithEmailPassWord(email, passWord);
+      const { user } = await signInNewAuthUserWithEmailPassWord(
+        email,
+        passWord
+      );
+      setCurrentUser(user);
       alfterLoggingIn();
-
-      // Commented as replaced with onAuthStateChanged in context [UserDataContext]
-      // setCurrentUser(user);
-      // console.log(user);
     } catch (error) {
       if (error.code === "auth/wrong-password") {
         handeError("Wrong PassWord for the Email");
@@ -78,18 +72,18 @@ const SignInForm = () => {
 
   //* Google Sign IN Using Popup Method
   const googlePopupSignIn = async () => {
-    await signInWithGooglePopup();
+    const { user } = await signInWithGooglePopup();
+    await createNewAuthUser(user);
+    setCurrentUser(user);
     alfterLoggingIn();
-    // Commented as replaced with onAuthStateChanged in context [UserDataContext]
-    // const { user } = await signInWithGooglePopup();
-    // await createNewAuthUser(user);
-    // setCurrentUser(user);
   };
 
   //* FaceBook Sign IN Using Popup Method
   const facebookPopupSignIn = async () => {
     try {
-      await signInWithFacebookPopup();
+      const { user } = await signInWithFacebookPopup();
+      await createNewAuthUser(user);
+      setCurrentUser(user);
       alfterLoggingIn();
     } catch (error) {
       if ((error.code = "auth/account-exists-with-different-credential")) {
@@ -100,10 +94,6 @@ const SignInForm = () => {
         console.log("Error:", error);
       }
     }
-    // Commented as replaced with onAuthStateChanged in context [UserDataContext]
-    // const { user } = await signInWithFacebookPopup();
-    // await createNewAuthUser(user);
-    // setCurrentUser(user);
   };
 
   return (
