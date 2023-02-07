@@ -12,6 +12,7 @@ export const userContext = createContext({
   setCurrentUser: () => null,
 });
 
+//! Reducers Actions Object
 export const USER_ACTION_TYPES = {
   SET_CURRENT_USER: "SET_CURRENT_USER",
 };
@@ -33,6 +34,7 @@ const userReducer = (state, action) => {
   }
 };
 
+//! Reducers Initial State
 const INITIAL_STATE = {
   currentUser: null,
 };
