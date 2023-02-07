@@ -1,19 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// Commented as replaced with onAuthStateChanged in context [UserDataContext]
-// import { useContext } from "react";
-
 import "./SignInForm.scss";
 import FormInput from "../FormInput/FormInput";
 import Button from "../Button/Button"; //<-- General Button Component
-
-// Commented as replaced with onAuthStateChanged in context [UserDataContext]
-// import { userContext } from "../../context/UserDataContext"; //<-- General Storage
 import {
   signInWithGooglePopup,
   signInWithFacebookPopup,
   signInNewAuthUserWithEmailPassWord,
-  // createNewAuthUser,
 } from "../../utils/FireBase/FireBase";
 
 const SignInForm = () => {
@@ -29,8 +22,6 @@ const SignInForm = () => {
   const [socialErrorState, setSocialErrorState] = useState(""); // <-- [SocialMedia] SignIn Error State for [Span]
 
   //! Contexts
-  // Commented as replaced with onAuthStateChanged in context [UserDataContext]
-  // const { setCurrentUser } = useContext(userContext);
 
   //! Functions
   const handleChange = (event) => {
@@ -61,10 +52,6 @@ const SignInForm = () => {
     try {
       await signInNewAuthUserWithEmailPassWord(email, passWord);
       alfterLoggingIn();
-
-      // Commented as replaced with onAuthStateChanged in context [UserDataContext]
-      // setCurrentUser(user);
-      // console.log(user);
     } catch (error) {
       if (error.code === "auth/wrong-password") {
         handeError("Wrong PassWord for the Email");
@@ -80,10 +67,6 @@ const SignInForm = () => {
   const googlePopupSignIn = async () => {
     await signInWithGooglePopup();
     alfterLoggingIn();
-    // Commented as replaced with onAuthStateChanged in context [UserDataContext]
-    // const { user } = await signInWithGooglePopup();
-    // await createNewAuthUser(user);
-    // setCurrentUser(user);
   };
 
   //* FaceBook Sign IN Using Popup Method
@@ -100,10 +83,6 @@ const SignInForm = () => {
         console.log("Error:", error);
       }
     }
-    // Commented as replaced with onAuthStateChanged in context [UserDataContext]
-    // const { user } = await signInWithFacebookPopup();
-    // await createNewAuthUser(user);
-    // setCurrentUser(user);
   };
 
   return (

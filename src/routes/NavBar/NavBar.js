@@ -12,13 +12,6 @@ const NavBar = () => {
   const { currentUser } = useContext(userContext);
   const { displayCart } = useContext(cartContext);
 
-  // Commented as replaced with onAuthStateChanged in context [UserDataContext]
-  // const { setCurrentUser } = useContext(userContext);
-  // const handleSignOut = async () => {
-  //   await signOutUser();
-  //   setCurrentUser(null);
-  // };
-
   return (
     <Fragment>
       <nav className="nav-bar">
