@@ -4,11 +4,9 @@ import { ReactComponent as LogoIcon } from "../../assets/shopping-bag.svg";
 import "./CartIcon.scss";
 
 const CartIcon = () => {
-  const { setDisplayCart, cartCount } = useContext(cartContext);
+  const { displayCart, setDisplayCart, cartCount } = useContext(cartContext);
 
-  const toggleDorpdown = () => {
-    setDisplayCart();
-  };
+  const toggleDorpdown = () => setDisplayCart(!displayCart);
 
   return (
     <div className="cart-icon-container" onClick={toggleDorpdown}>

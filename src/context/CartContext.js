@@ -1,4 +1,5 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useReducer } from "react";
+import { createAction } from "../utils/Reducer/Reducer";
 
 //! Helper Functions
 const addCartItem = (itemToAdd, cartItems) => {
@@ -49,8 +50,6 @@ export const cartContext = createContext({
 const CART_ACTION_TYPES = {
   SET_CART_DISPLAY: "SET_CART_DISPLAY",
   SET_CART_ITEMS: "SET_CART_ITEMS",
-  SET_CART_COUNT: "SET_CART_COUNT",
-  SET_TOTAL_PRICE: "SET_TOTAL_PRICE",
 };
 
 //! Reducers Function
@@ -58,14 +57,10 @@ const cartReducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case "SET_CART_DISPLAY":
+    case CART_ACTION_TYPES.SET_CART_DISPLAY:
       return { ...state, displayCart: payload };
-    case "SET_CART_ITEMS":
-      return { ...state, cartItems: payload };
-    case "SET_CART_COUNT":
-      return { ...state, cartCount: payload };
-    case "SET_TOTAL_PRICE":
-      return { ...state, cartTotalPrice: payload };
+    case CART_ACTION_TYPES.SET_CART_ITEMS:
+      return { ...state, ...payload };
     default:
       throw new Error(`Unknown Type ${type} in userReducer`);
   }
@@ -81,77 +76,49 @@ const INITIAL_STATE = {
 
 //! Main Function
 export const CartProvider = ({ children }) => {
-  //! Stats
-  // const [displayCart, setDisplayCart] = useState(false);
-  // const [cartItems, setCartItems] = useState([]);
-  // const [cartCount, setCartCount] = useState(0);
-  // const [cartTotalPrice, setCartTotalPrice] = useState(0);
-
   //! Reducers
   //Replacing all states in Initial State
   //All setStates --> With new Functions that trigger the dispatch
   const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
   const { displayCart, cartItems, cartCount, cartTotalPrice } = state;
 
-  const setDisplayCart = () => {
-    const action = {
-      type: CART_ACTION_TYPES.SET_CART_DISPLAY,
-      payload: !displayCart,
-    };
-    dispatch(action);
-  };
-
   //! Reducers Functions
-  const setCartItems = (ItemsObject) => {
-    const action = {
-      type: CART_ACTION_TYPES.SET_CART_ITEMS,
-      payload: ItemsObject,
-    };
-    dispatch(action);
+  const setDisplayCart = (bool) => {
+    dispatch(createAction(CART_ACTION_TYPES.SET_CART_DISPLAY, bool));
   };
 
-  const setCartCount = (count) => {
-    const action = { type: CART_ACTION_TYPES.SET_CART_COUNT, payload: count };
-    dispatch(action);
-  };
-
-  const setCartTotalPrice = (totalPrice) => {
-    const action = {
-      type: CART_ACTION_TYPES.SET_TOTAL_PRICE,
-      payload: totalPrice,
+  const updateCartItemsReducer = (newCartItems) => {
+    const newCartItemsCount = newCartItems.reduce(
+      (accum, item) => accum + item.quantity,
+      0
+    );
+    const newCartItemsTotalPrice = newCartItems.reduce(
+      (accum, item) => accum + item.price * item.quantity,
+      0
+    );
+    const thePayload = {
+      cartItems: newCartItems,
+      cartCount: newCartItemsCount,
+      cartTotalPrice: newCartItemsTotalPrice,
     };
-    dispatch(action);
+    dispatch(createAction(CART_ACTION_TYPES.SET_CART_ITEMS, thePayload));
   };
 
   //! Context Functions
   const addItemToCart = (itemToAdd) => {
-    setCartItems(addCartItem(itemToAdd, cartItems));
+    const newCartItems = addCartItem(itemToAdd, cartItems);
+    updateCartItemsReducer(newCartItems);
   };
 
   const removeItemFromCart = (itemToRemove) => {
-    setCartItems(removeCartItem(itemToRemove, cartItems));
+    const newCartItems = removeCartItem(itemToRemove, cartItems);
+    updateCartItemsReducer(newCartItems);
   };
 
   const deleteItemFromCart = (itemToDelete) => {
-    setCartItems(deleteCartItem(itemToDelete, cartItems));
+    const newCartItems = deleteCartItem(itemToDelete, cartItems);
+    updateCartItemsReducer(newCartItems);
   };
-
-  //! useEffects Hook
-  useEffect(() => {
-    const cartItemsCount = cartItems.reduce(
-      (accum, item) => accum + item.quantity,
-      0
-    );
-    setCartCount(cartItemsCount);
-  }, [cartItems]);
-
-  useEffect(() => {
-    const cartItemsTotalPrice = cartItems.reduce(
-      (accum, item) => accum + item.price * item.quantity,
-      0
-    );
-    setCartTotalPrice(cartItemsTotalPrice);
-  }, [cartItems]);
 
   //! Provided Values
   const value = {
