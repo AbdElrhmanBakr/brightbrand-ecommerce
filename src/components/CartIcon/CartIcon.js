@@ -7,7 +7,7 @@ const CartIcon = () => {
   const { setDisplayCart, cartCount } = useContext(cartContext);
 
   const toggleDorpdown = () => {
-    setDisplayCart((prevState) => !prevState);
+    setDisplayCart();
   };
 
   return (
