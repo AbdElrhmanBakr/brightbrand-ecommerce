@@ -1,7 +1,9 @@
 import { Fragment, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { signOutUser } from "../../utils/FireBase/FireBase";
-import { userContext } from "../../context/UserContext";
+import { selectCurrentUser } from "../../store/UserReducer/UserSelector";
 import { cartContext } from "../../context/CartContext";
 import CartIcon from "../../components/CartIcon/CartIcon";
 import CartDropdown from "../../components/CartDropdown/CartDropdown";
@@ -9,7 +11,8 @@ import NavLogo from "../../assets/BrightBrand-C.png";
 import "./NavBar.scss";
 
 const NavBar = () => {
-  const { currentUser } = useContext(userContext);
+  // Selector Updates whenever State Object Changes, as It returns brand new Obj State.
+  const currentUser = useSelector(selectCurrentUser);
   const { displayCart } = useContext(cartContext);
 
   return (
