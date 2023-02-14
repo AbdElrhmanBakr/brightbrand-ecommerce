@@ -126,7 +126,7 @@ export const signInNewAuthUserWithEmailPassWord = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 }; // <-- Imported in SignInForm Component
 
-export const signOutUser = async () => signOut(auth); // <-- Imported in SignInForm Component
+export const signOutUser = async () => signOut(auth); // <-- Imported in NavBar Route
 
 // Imported in UserDataContext ContextComponent
 // onAuthStateChanged pass user who changed the auth state to that callback function
