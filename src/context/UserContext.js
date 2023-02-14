@@ -1,5 +1,5 @@
 import { useReducer, createContext, useEffect } from "react";
-
+import { createAction } from "../utils/Reducer/Reducer";
 import {
   onAuthStateChangedListener,
   createNewAuthUser,
@@ -28,7 +28,6 @@ const userReducer = (state, action) => {
   switch (type) {
     case USER_ACTION_TYPES.SET_CURRENT_USER:
       return { ...state, currentUser: payload };
-
     default:
       throw new Error(`Unknown Type ${type} in userReducer`);
   }
@@ -51,8 +50,9 @@ export const UserProvider = ({ children }) => {
   // Invoking setCurrentUser --> Leads to Invoking dispatchFunction and trigger a Re-render.
   // as Passing the action object to reducerFunction --> Leads to Update the userState.
   const setCurrentUser = (user) => {
-    const action = { type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user };
-    dispatch(action);
+    // const action = { type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user };
+
+    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
   };
 
   const value = { currentUser, setCurrentUser };

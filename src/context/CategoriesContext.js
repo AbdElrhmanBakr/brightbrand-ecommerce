@@ -7,7 +7,7 @@ import { getDocumentsAndCategories } from "../utils/FireBase/FireBase";
 
 //!Context
 export const categoriesContext = createContext({
-  products: {},
+  categories: {},
 });
 
 export const CategoriesProvider = ({ children }) => {
