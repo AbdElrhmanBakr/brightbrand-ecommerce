@@ -5,15 +5,15 @@ import { Routes, Route } from "react-router-dom";
 import { getDocumentsAndCategories } from "../../utils/FireBase/FireBase";
 import CategoriesPreview from "../CategoriesPreview/CategoriesPreview";
 import Category from "../Category/Category";
-import { setCategoriesData } from "../../store/CategoriesReducer/CategoriesAction";
+import { setCategories } from "../../store/CategoriesReducer/CategoriesAction";
 
 const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getCategories = async () => {
-      const categoriesData = await getDocumentsAndCategories();
-      dispatch(setCategoriesData(categoriesData));
+      const categoriesArray = await getDocumentsAndCategories();
+      dispatch(setCategories(categoriesArray));
     };
     getCategories();
   }, [dispatch]);
