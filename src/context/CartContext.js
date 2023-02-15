@@ -62,7 +62,7 @@ const cartReducer = (state, action) => {
     case CART_ACTION_TYPES.SET_CART_ITEMS:
       return { ...state, ...payload };
     default:
-      throw new Error(`Unknown Type ${type} in userReducer`);
+      throw new Error(`Unknown Type ${type} in cartReducer`);
   }
 };
 
