@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 
 import ProductCard from "../../components/ProductCard/ProductCard";
-import { selectCategoriesData } from "../../store/CategoriesReducer/CategoriesSelector";
+import { selectCategoriesMap } from "../../store/CategoriesReducer/CategoriesSelector";
 import "./Category.scss";
 
 const Category = () => {
-  const categories = useSelector(selectCategoriesData);
+  const categories = useSelector(selectCategoriesMap);
   const { category } = useParams();
   const [products, setProducts] = useState(categories[category]);
   const navigateTo = useNavigate();
