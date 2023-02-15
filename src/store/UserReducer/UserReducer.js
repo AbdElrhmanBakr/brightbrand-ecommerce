@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 };
 
 //! Reducer Function
-export const userReducer = (state = INITIAL_STATE, action) => {
+export const userReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action;
 
   switch (type) {
