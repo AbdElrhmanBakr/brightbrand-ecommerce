@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import {
   onAuthStateChangedListener,
   createNewAuthUser,
 } from "../utils/FireBase/FireBase";
-
 import NavBar from "../routes/NavBar/NavBar";
 import Home from "../routes/Home/Home";
 import Shop from "../routes/Shop/Shop";
