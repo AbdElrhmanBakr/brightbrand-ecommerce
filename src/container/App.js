@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
+import { Routes, Route } from "react-router-dom";
 
 import {
   onAuthStateChangedListener,
