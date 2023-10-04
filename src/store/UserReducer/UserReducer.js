@@ -6,6 +6,7 @@ const INITIAL_STATE = {
 };
 
 //! Reducer Function
+// Every Single [All] Reducer receives the actions passed to any one.
 export const userReducer = (state = INITIAL_STATE, action = {}) => {
   const { type, payload } = action;
 
