@@ -11,7 +11,11 @@ import NavLogo from "../../assets/BrightBrand-C.png";
 import "./NavBar.scss";
 
 const NavBar = () => {
+  // useSelector receive the entire state from redux
   // Selector Updates whenever State Object Changes, as It returns brand new Obj State.
+  //Whenever the Redux Store changes due to any of the individual reducers updates the Redux Store,
+  //Every single useSelector will fire, as useSelector is hooked into Redux Store
+  //If the return of the selector changes, the component rerenders
   const currentUser = useSelector(selectCurrentUser);
   const { displayCart } = useContext(cartContext);
 

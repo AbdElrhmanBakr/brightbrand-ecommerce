@@ -7,6 +7,9 @@ import { selectCategoriesMap } from "../../store/CategoriesReducer/CategoriesSel
 import "./Category.scss";
 
 const Category = () => {
+  //Whenever the Redux Store changes due to any of the individual reducers updates the Redux Store,
+  //Every single useSelector will fire, as useSelector is hooked into Redux Store
+  //If the return of the selector changes, the component rerenders
   const categories = useSelector(selectCategoriesMap);
   const { category } = useParams();
   const [products, setProducts] = useState(categories[category]);
@@ -15,6 +18,7 @@ const Category = () => {
   const returnToHome = () => navigateTo("/shop");
 
   useEffect(() => {
+    //In first run, It'll set the products to undefined, which is the initial value --> categories is empty object.
     setProducts(categories[category]);
   }, [categories, category]);
 

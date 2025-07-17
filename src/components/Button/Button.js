@@ -7,6 +7,7 @@ const Button = ({ children, Type, ...otherProps }) => {
     facebook: "facebook-sign-in",
     inverted: "inverted",
   };
+
   return (
     <button className={`button-container ${ButtonType[Type]}`} {...otherProps}>
       {children}
